@@ -18,10 +18,7 @@ annotorious.plugin.Parse = function(opt_config_options) {
   this._collection = null;
   /** @private **/
   this._loadIndicators = [];
-};
-
-annotorious.plugin.Parse.prototype.initPlugin = function(anno) {
-  var self = this;
+  
   // initialize Parse
   Parse.$ = jQuery;
   Parse.initialize(this._APP_ID, this._JS_KEY);
@@ -31,6 +28,10 @@ annotorious.plugin.Parse.prototype.initPlugin = function(anno) {
     model: Annotation
   });
   this._collection = new AnnotationCollection();
+};
+
+annotorious.plugin.Parse.prototype.initPlugin = function(anno) {
+  var self = this;
 
   anno.addHandler('onAnnotationCreated', function(annotation) {
     self._create(annotation);
@@ -43,11 +44,11 @@ annotorious.plugin.Parse.prototype.initPlugin = function(anno) {
   anno.addHandler('onAnnotationRemoved', function(annotation) {
     self._delete(annotation);
   });
-
-  self._loadAnnotations(anno);
 };
 
 annotorious.plugin.Parse.prototype.onInitAnnotator = function(annotator) {
+  self._loadAnnotations(anno);
+  
   var spinner = this._newLoadIndicator();
   annotator.element.appendChild(spinner);
   this._loadIndicators.push(spinner);
