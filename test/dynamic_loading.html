@@ -1,0 +1,86 @@
+<html>
+  <head>
+    <title>Annotorious Parse.com Plugin Test Page</title>
+
+    <!-- Import main Annotorious script and CSS -->
+    <link rel="stylesheet" href="http://annotorious.github.com/latest/annotorious.css" type="text/css" />
+    <script src="http://annotorious.github.com/latest/annotorious.min.js"></script>
+    
+    <!-- Import jQuery - the plugin depends on it! -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+    <!-- Import Parse's javascript sdk - the plugin depends on it! -->
+    <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
+    
+    <!-- Import the css styles -->
+    <link rel="stylesheet" href="../anno-parse-plugin.css" type="text/css" /> 
+
+    <!-- Import the plugin script -->
+    <script src="../anno-parse-plugin.js"></script>
+    
+    <!-- Use Annotorious' JavaScript API to attach and activate the plugin -->
+    <script>
+      anno.addPlugin('Parse', { 
+        app_id: 'C2VeYqJ2qdyUM50d4R1VvpBvybHYLoWmcsrY6d0u',
+        js_key: 'OKPb2jZruZOIkfRHnKTOqqV9gP3xdGqgHUUu1tZ4',
+        debug: true,
+        prefix_img_url: 'none'
+      });
+      
+      var text_cluj =
+    	  '<br>Postcard Source: <a href="http://trialx.com/i/2011/05/28/photos-and-information-about-cluj-napoca/">trialx</a>' 
+    	  + '<br> Cluj Napoca, commonly known as Cluj, is the second most populous city in Romania,[5] after the national capital Bucharest, and the seat of Cluj County in the northwestern part of the country. Geographically, it is roughly equidistant from Bucharest (324 kilometres (201 miles)), Budapest (351 km (218 mi)) and Belgrade (322 km (200 mi)). Located in the Someşul Mic River valley, the city is considered the unofficial capital to the historical province of Transylvania. Between 1790-1848 and 1861-1867, it was the official capital of the Grand Principality of Transylvania.'
+    	  + '<br> See also Wikipedia page: <a href="http://en.wikipedia.org/wiki/Cluj-Napoca"> Cluj Napoca</a>';
+    	  
+      var text_hallstatt = 'Hallstatt, Austria. By Nick Csakany, 2007. Public Domain. Source: <a href="http://commons.wikimedia.org/wiki/File:Hallstatt_300.jpg">Wikimedia Commons</a>';
+    	  
+      var images = {"hallstatt" : "640px-Hallstatt.jpg", "cluj" : "640px-Cluj-Napoca.jpg"};
+      var captions = {"hallstatt" : text_hallstatt, "cluj" : text_cluj};
+      
+      function changeContent(city){
+    	  
+    	  imageTag = '<img id="annotatable_img" src="';
+    	  imageTag += images[city];
+    	  imageTag += '" class="annotatable" alt="annotatable image" />';
+    	  imageHolder = document.getElementById("image-holder");
+    	  imageHolder.innerHTML = imageTag;
+    	  
+    	  imageCaption = document.getElementById("image-caption");
+    	  imageCaption.innerHTML = captions[city];
+    	  
+    	  window.setTimeout( function(){anno.reset();}, 500);
+      } 
+      
+      
+    </script>
+    <style>
+      .image-caption {
+        line-height: normal;
+        font-weight: bold;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+
+  <body>
+      This test page is used to check the behaviour of this plugin when loading images dynamically
+      <br>
+      <a href="javascript:changeContent('hallstatt')">Hallstatt</a> 
+      		&nbsp; &nbsp; &nbsp; 
+   	  <a href="javascript:changeContent('cluj')">Cluj Napoca</a>
+   	     		&nbsp; &nbsp; &nbsp; 
+   	  <a href="javascript:changeContent('clear')">clear</a>
+   			&nbsp; &nbsp; &nbsp; 
+   	  <a href="javascript:document.location.reload()">reload</a>
+   	  	
+    <div>
+      <p id="image-holder">
+                  
+      </p>
+      <p class="image-caption" id="image-caption">
+                  
+      </p>
+    </div>
+    
+  </body>
+</html>
